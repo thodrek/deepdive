@@ -50,6 +50,10 @@ object FactorFunctionParser extends RegexParsers with Logging {
     LogicalFactorFunction(varList)
   }
 
+  def oneIsTrueFactorFunction = ("OneIsTrue" | "ONEISTRUE") ~> "(" ~> rep1sep(factorVariable, ",") <~ ")" ^^ { varList =>
+    OneIsTrueFactorFunction(varList)
+  }
+
   def factorVariable = ("!"?) ~ rep1sep(relationOrField, ".") ~ (arrayDefinition?) ~
     (("=" ~> equalPredicate)?) ^^ {
     case (isNegated ~ varList ~ isArray ~ predicate)  =>
@@ -66,6 +70,6 @@ object FactorFunctionParser extends RegexParsers with Logging {
 
   def factorFunc = implyFactorFunction | orFactorFunction | andFactorFunction |
     equalFactorFunction | isTrueFactorFunction | xorFactorFunction | multinomialFactorFunction |
-    linearFactorFunction | ratioFactorFunction | logicalFactorFunction
+    linearFactorFunction | ratioFactorFunction | logicalFactorFunction | oneIsTrueFactorFunction
 
 }

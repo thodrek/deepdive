@@ -227,4 +227,6 @@ class FactorFunctionParserSpec extends FunSpec {
     }
   }
 
+
+
 }
